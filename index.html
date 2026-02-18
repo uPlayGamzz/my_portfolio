@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Creative Developer</title>
+    
+    <!-- Google Fonts: Space Grotesk for headings (Tech feel) & Inter for body (Clean) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           CONTROL PANEL (CHANGE COLORS HERE)
+           ========================================= */
+        :root {
+            /* 1. BRAND COLORS */
+            --primary-color: #39ff14;      /* ELECTRIC GREEN */
+            --primary-dim: rgba(57, 255, 20, 0.15); /* Glow color */
+            
+            /* 2. THEME COLORS (Dark Mode Base) */
+            --bg-dark: #0a0a0a;            /* Deep black background */
+            --bg-card: #121212;            /* Slightly lighter for cards */
+            --text-main: #ffffff;          /* Main headings */
+            --text-muted: #a1a1aa;         /* Secondary text */
+            
+            /* 3. LAYOUT & SPACING */
+            --nav-height: 80px;
+            --transition: all 0.3s ease;
+        }
+
+        /* =========================================
+           GLOBAL RESET
+           ========================================= */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* Native Smooth Scrolling fallback */
+        html { 
+            scroll-behavior: smooth; 
+            scroll-padding-top: var(--nav-height);
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+
+        /* =========================================
+           NAVIGATION
+           ========================================= */
+        nav {
+            height: var(--nav-height);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: rgba(10, 10, 10, 0.85); /* Glass effect */
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            cursor: pointer;
+        }
+
+        .logo span { color: var(--primary-color); }
+
+        .nav-links { display: flex; gap: 2.5rem; }
+
+        .nav-links a {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover { color: var(--text-main); }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after { width: 100%; }
+
+        .btn-primary {
+            padding: 0.7rem 1.8rem;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 4px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-color);
+            color: var(--bg-dark);
+            box-shadow: 0 0 25px var(--primary-dim); /* Neon Glow */
+            transform: translateY(-2px);
+        }
+
+        /* =========================================
+           HERO SECTION
+           ========================================= */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 15%;
+            transform: translateY(-50%);
+            width: 500px;
+            height: 500px;
+            background: var(--primary-color);
+            filter: blur(180px); 
+            opacity: 0.12;
+            border-radius: 50%;
+            z-index: -1;
+            animation: pulseGlow 8s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { opacity: 0.12; transform: translateY(-50%) scale(1); }
+            100% { opacity: 0.2; transform: translateY(-50%) scale(1.1); }
+        }
+
+        .hero-content {
+            max-width: 900px;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s ease forwards;
+            animation-delay: 0.2s;
+        }
+
+        .hero-label {
+            color: var(--primary-color);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            border: 1px solid var(--primary-dim);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            background: rgba(57, 255, 20, 0.05);
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(3rem, 6vw, 5.5rem); 
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -2px;
+        }
+
+        h1 span { color: var(--text-muted); }
+
+        p.hero-text {
+            color: var(--text-muted);
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            max-width: 600px;
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .btn-link {
+            color: var(--text-main);
+            position: relative;
+            font-weight: 500;
+        }
+        
+        .btn-link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--text-muted);
+            transition: background-color 0.3s;
+        }
+
+        .btn-link:hover { color: var(--primary-color); }
+        .btn-link:hover::after { background-color: var(--primary-color); }
+
+        /* =========================================
+           GLOBAL SECTION STYLES
+           ========================================= */
+        section {
+            padding: 50px 5% 100px 5%;
+            min-height: 80vh;
+            scroll-margin-top: 50px; 
+        }
+
+        .section-header { margin-bottom: 4rem; }
+
+        .section-subtitle {
+            color: var(--primary-color);
+            font-family: 'Space Grotesk', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        /* =========================================
+           WORK SECTION
+           ========================================= */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 40px -10px var(--primary-dim);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 250px;
+            /* background: #1a1a1a; */
+            background: url('https://i.pinimg.com/1200x/02/39/a8/0239a8197a80d4eced2a4ef1eddf9f23.jpg');
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .project-image span {
+            color: var(--text-muted);
+            font-size: 3rem;
+            font-family: 'Space Grotesk', sans-serif;
+            opacity: 0.1;
+            font-weight: bold;
+        }
+
+        .project-content { padding: 2rem; }
+
+        .project-tags {
+            display: flex;
+            gap: 0.6rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-dim);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .project-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-main);
+        }
+
+        .project-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-link {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-main);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .project-card:hover .project-link { color: var(--primary-color); }
+
+        /* =========================================
+           ART LAB SECTION (NEW)
+           ========================================= */
+        .art-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .art-item {
+            position: relative;
+            background: #151515;
+            aspect-ratio: 1; /* Square boxes */
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.03);
+            transition: var(--transition);
+        }
+
+        .art-item:hover {
+            border-color: var(--primary-color);
+            transform: scale(0.98);
+        }
+
+        /* Abstract patterns for placeholders */
+        .art-item::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(45deg, transparent 40%, var(--primary-dim));
+            opacity: 0.3;
+        }
+        
+        .art-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .art-item:hover .art-overlay { opacity: 1; }
+        
+        .art-title {
+            font-size: 1rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+        }
+
+        /* =========================================
+           ABOUT SECTION (NEW)
+           ========================================= */
+        .about-layout {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+        
+        .highlight { color: var(--text-main); font-weight: 600; }
+
+        .skills-container h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid var(--primary-color);
+            padding-left: 1rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .skill-item {
+            background: rgba(255,255,255,0.03);
+            padding: 0.8rem 1rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .skill-item::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--primary-color);
+        }
+
+        /* =========================================
+           CONTACT SECTION & FOOTER (NEW)
+           ========================================= */
+        .contact-layout {
+            max-width: 600px;
+        }
+        
+        .form-group { margin-bottom: 1.5rem; }
+        
+        input, textarea {
+            width: 100%;
+            padding: 1rem 0;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-bottom-color: var(--primary-color);
+        }
+        
+        label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        footer {
+            padding: 2rem 5%;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* =========================================
+           RESPONSIVE
+           ========================================= */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            
+            .hero::before { width: 300px; height: 300px; right: -50px; }
+
+            h1 { font-size: 3rem; }
+            
+            .cta-group {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.5rem;
+            }
+            
+            .btn-primary { width: 100%; text-align: center; }
+            
+            .about-layout { grid-template-columns: 1fr; gap: 3rem; }
+            
+            section { padding: 80px 5%; }
+        }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="logo">PORTFOLIO<span>.</span></div>
+        <ul class="nav-links">
+            <li><a href="#work">Work</a></li>
+            <li><a href="#art">Art Lab</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+        <a href="#contact" class="btn-primary">Let's Talk</a>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-label">Web Developer & Visual Artist</span>
+            <h1>
+                Crafting digital<br> 
+                <span>experiences where</span><br>
+                code meets art.
+            </h1>
+            <p class="hero-text">
+                Specializing in high-performance web development (uPlay) and immersive UI design. Based in Abuja.
+            </p>
+            <div class="cta-group">
+                <a href="#work" class="btn-primary">View Projects</a>
+                <a href="https://github.com/" target="_blank" class="btn-link">Check GitHub →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- WORK SECTION -->
+    <section id="work">
+        <div class="section-header">
+            <span class="section-subtitle">Selected Works</span>
+            <h2 class="section-title">Featured Projects</h2>
+        </div>
+
+        <div class="projects-grid">
+            <!-- Project 1 -->
+            <article class="project-card">
+                <div class="project-image"><span>01</span></div>
+                <div class="project-content">
+                    <div class="project-tags">
+                        <span class="tag">HTML/CSS</span>
+                        <span class="tag">Gaming UI</span>
+                    </div>
+                    <h3 class="project-title">uPlay / uPlayGamzz</h3>
+                    <p class="project-desc">
+                        A competitive gaming platform connecting players for tournaments. Features a custom dark-mode UI and tournament brackets.
+                    </p>
+                    <a href="#" class="project-link">View Project →</a>
+                </div>
+            </article>
+
+            <!-- Project 2 -->
+            <article class="project-card">
+                <div class="project-image"><span>02</span></div>
+                <div class="project-content">
+                    <div class="project-tags">
+                        <span class="tag">React</span>
+                        <span class="tag">3D Design</span>
+                    </div>
+                    <h3 class="project-title">Portfolio v1</h3>
+                    <p class="project-desc">
+                         An immersive 3D portfolio showcasing digital art. Demonstrates high-performance rendering techniques.
+                    </p>
+                    <a href="#" class="project-link">View Project →</a>
+                </div>
+            </article>
+            
+            <!-- Project 3 -->
+            <article class="project-card">
+                <div class="project-image"><span>03</span></div>
+                <div class="project-content">
+                    <div class="project-tags">
+                        <span class="tag">Next.js</span>
+                        <span class="tag">UX Design</span>
+                    </div>
+                    <h3 class="project-title">Architectural Site</h3>
+                    <p class="project-desc">
+                         A minimalist portfolio site for an architecture firm, focusing on clean typography and smooth transitions.
+                    </p>
+                    <a href="#" class="project-link">View Project →</a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- VISUAL LAB SECTION (ART) -->
+    <section id="art">
+        <div class="section-header">
+            <span class="section-subtitle">Visual Lab</span>
+            <h2 class="section-title">Digital Art & Experiments</h2>
+        </div>
+        
+        <div class="art-grid">
+            <div class="art-item">
+                <div class="art-overlay"><h4 class="art-title">UI Exploration</h4></div>
+            </div>
+            <div class="art-item">
+                <div class="art-overlay"><h4 class="art-title">3D Concept</h4></div>
+            </div>
+            <div class="art-item">
+                <div class="art-overlay"><h4 class="art-title">Typography</h4></div>
+            </div>
+            <div class="art-item">
+                <div class="art-overlay"><h4 class="art-title">Atmospheric</h4></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about">
+        <div class="section-header">
+            <span class="section-subtitle">About Me</span>
+            <h2 class="section-title">The Artist Behind the Code</h2>
+        </div>
+
+        <div class="about-layout">
+            <div class="about-text">
+                <p>
+                    I am a <span class="highlight">Creative Developer</span> based in Abuja, bridging the gap between functional code and aesthetic design.
+                </p>
+                <p>
+                    With a background that intersects technical precision and artistic exploration, I don't just build websites—I build digital atmospheres. My work on <span class="highlight">uPlay</span> reflects my passion for gaming communities and high-performance interfaces.
+                </p>
+                <p>
+                    When I'm not coding, I'm exploring digital art, experimenting with 3D concepts, and finding new ways to make the web feel more immersive.
+                </p>
+            </div>
+            
+            <div class="skills-container">
+                <h3>Tech Stack</h3>
+                <div class="skills-grid">
+                    <div class="skill-item">JavaScript (ES6+)</div>
+                    <div class="skill-item">HTML5 & CSS3</div>
+                    <div class="skill-item">React / Next.js</div>
+                    <div class="skill-item">Tailwind CSS</div>
+                    <div class="skill-item">Git & GitHub</div>
+                    <div class="skill-item">Figma / UI Design</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact">
+        <div class="section-header">
+            <span class="section-subtitle">Get in Touch</span>
+            <h2 class="section-title">Let's Create Together</h2>
+        </div>
+        
+        <div class="contact-layout">
+            <form action="mailto:your@email.com" method="post" enctype="text/plain">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea rows="4" placeholder="Tell me about your project..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 Creative Developer Portfolio. Built with precision.</p>
+    </footer>
+
+    <!-- JAVASCRIPT FOR SMOOTH SCROLLING -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
